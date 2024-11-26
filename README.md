@@ -1,8 +1,8 @@
 # Forest Image Segmentation
-- Anthony Wu, awu3	
-- Jheel Gala, jgala	
-- Ophelia Sin, oysin	
-- Venkata Sai Praveen Gunda, vgunda
+- Anthony Wu
+- Jheel Gala
+- Ophelia Sin	
+- Venkata Sai Praveen Gunda
 
 ## Methodology
 
