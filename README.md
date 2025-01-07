@@ -1,7 +1,7 @@
-# Image Segmentation for Deforestation Detection: A Transfer Learning Approach
+# Image Segmentation for Deforestation Mapping: A Transfer Learning Approach
 
 ## Overview
-This repository contains the implementation of a deep learning model designed to detect deforestation using image segmentation techniques. Leveraging transfer learning with a modified U-Net architecture and MobileNetV2 as the encoder, our approach aims to provide accurate assessments of deforested areas based on satellite imagery from REDD+ project sites. This work is crucial for enhancing the transparency and accountability of deforestation reporting in environmental conservation efforts.
+This repository contains the implementation of a deep learning model designed to identify deforestation using image segmentation techniques. Leveraging transfer learning with a modified U-Net architecture and MobileNetV2 as the encoder, our approach aims to provide accurate assessments of deforested areas based on satellite imagery from REDD+ project sites. This work is crucial for enhancing the transparency and accountability of deforestation reporting in environmental conservation efforts.
 
 ## Project Description
 Deforestation significantly impacts climate change and biodiversity, making effective monitoring essential. This project utilizes a dataset derived from geographical boundaries of REDD+ projects to create images for estimating deforested areas. The modified U-Net model employs skip connections for efficient training and leverages pre-trained weights from MobileNetV2 to enhance feature extraction capabilities.
