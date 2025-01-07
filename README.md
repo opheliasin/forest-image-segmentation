@@ -1,38 +1,47 @@
-# Forest Image Segmentation
+# Image Segmentation for Deforestation Detection: A Transfer Learning Approach
+
+## Overview
+This repository contains the implementation of a deep learning model designed to detect deforestation using image segmentation techniques. Leveraging transfer learning with a modified U-Net architecture and MobileNetV2 as the encoder, our approach aims to provide accurate assessments of deforested areas based on satellite imagery from REDD+ project sites. This work is crucial for enhancing the transparency and accountability of deforestation reporting in environmental conservation efforts.
+
+## Project Description
+Deforestation significantly impacts climate change and biodiversity, making effective monitoring essential. This project utilizes a dataset derived from geographical boundaries of REDD+ projects to create images for estimating deforested areas. The modified U-Net model employs skip connections for efficient training and leverages pre-trained weights from MobileNetV2 to enhance feature extraction capabilities.
+
+## Dataset
+The dataset consists of satellite images collected via the Sentinel-2 L2A satellite, covering various REDD+ project sites across six countries (Cambodia, Colombia, Democratic Republic of Congo, Peru, Tanzania, and Zambia). The final dataset includes:
+- Total Images: 1,518
+- Image Patches Used: 893 (after manual curation for cloud coverage and quality)
+
+## Data Preparation Steps
+1. Image Collection: Images were gathered using the Sentinel Hub API.
+2. Mask Creation: Masks delineating deforested areas were manually created using GIMP.
+3. Preprocessing: Images were converted to PNG format, and binary masks were generated for training.
+
+## Model Architecture
+The model architecture is based on U-Net, which consists of an encoder-decoder structure:
+- Encoder: Utilizes MobileNetV2 for feature extraction.
+- Decoder: Upsamples features while preserving spatial information through skip connections.
+  
+## Key Features
+- Transfer Learning: Reduces training time and improves performance on small datasets.
+- Modified IoU Metric: Adjusted to handle cases where predicted masks are empty.
+
+## Results
+The model's performance was evaluated using metrics such as accuracy, loss, and Intersection over Union (IoU). The results indicate:
+- Best Training Accuracy: 0.839 (1-Fold Cross Validation)
+- Best Test IoU: 0.443
+Visualizations of predictions alongside ground truth masks demonstrate the model's capability to identify deforested areas effectively.
+
+## Future Work
+To enhance this project further, we propose:
+- Expanding the Dataset: Incorporating more diverse satellite imagery.
+- Refining Preprocessing Techniques: Improving cloud detection methods.
+- Exploring Alternative Architectures: Investigating other state-of-the-art segmentation models.
+- Incorporating Multi-temporal Data: Utilizing time-series data for better context in deforestation analysis.
+
+## Contributors
 - Anthony Wu
 - Jheel Gala
 - Ophelia Sin	
 - Venkata Sai Praveen Gunda
 
-## Methodology
 
-### Dataset
-The dataset used in this project is generated based on the dataset compiled by [West et al. 2023](https://www.science.org/doi/10.1126/science.ade3535), containing geographical boundaries of Verified Carbon Standard (VCS) -certified [REDD+](https://unfccc.int/topics/land-use/workstreams/redd/what-is-redd#:~:text='REDD'%20stands%20for%20'Reducing,enhancement%20of%20forest%20carbon%20stocks.) projects investigated. The original dataset included shapefiles of the 27 sites from 6 countries (Cambodia, Colombia, Democratic Republic of Congo, Peru, Tanzania, and Zambia).
-
-Previously, we've downloaded 1518 Sentinel-2 L2A images (10-m resolution) of these sites with [SentinelHub API](https://www.sentinel-hub.com/), collected during the summer months (June, July and August) between the years 2016 to 2018. The downloaded images were cropped to match the geographic boundaries of the sites. Then, we randomly extracted ten 224 x 224 image patches from each image. These image patches were in TIFF format and contain the 3 visible channels (red, green, and blue). 
-
-The image patches were reviewed manually - kept or discarded based on cloud coverage or existence of pixels with null values - and classified as forested or deforested. For our initial dataset, we retained 893 image patches. 
-
-To reduce the time spent on preparing the final dataset for this specific project, we randomly selected 121 224x224 images. The following table shows the number of images selected per project
-
-| Project | Total Images | Deforested Images |Forest Images| 
-|:---------------|-------------:|-------------:|-----------------:|
-| Colombia_1566  |           36 |           26 |               10 |
-| DRC_934        |            2 |            2 |                0 |
-| Peru_1067      |           39 |           39 |                0 |
-| Peru_1360      |            2 |            2 |                0 |
-| Peru_2278      |            1 |            1 |                0 |
-| Peru_844       |           16 |            1 |               15 |
-| Peru_944       |            4 |            4 |                0 |
-| Peru_958       |            1 |            1 |                0 |
-| Peru_985       |            2 |            2 |                0 |
-| Tanzania_1325  |            3 |            3 |                0 |
-| Zambia_1202    |            4 |            4 |                0 |
-| Zambia_1775    |           11 |           11 |                0 |
-
-### Masking
-- For each image in our dataset, we created a mask to mark deforested areas using [GIMP](https://www.gimp.org/), an open-sourced image editor. Deforested areas are colored with black paint, whereas forested area remained transparent. 
-
-## Limitations
-We acknowledge multiple limitations in our project:
-1. The masks we've drawn are not completely accurate. 
